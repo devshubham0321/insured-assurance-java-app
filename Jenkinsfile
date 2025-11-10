@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout SCM') {
             steps {
                 echo 'Checking out Git repository...'
-                git branch: 'main', url: 'https://github.com/devshubham0321/insured-assurance-java-app.git'
+                git branch: 'master', url: 'https://github.com/devshubham0321/insured-assurance-java-app.git'
             }
         }
 
