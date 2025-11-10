@@ -1,0 +1,41 @@
+name: Java CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Java 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: java-app
+          path: target/*.war
+
+      - name: Trigger Jenkins job
+        uses: appleboy/jenkins-action@v0.1.0
+        with:
+          url: http://13.233.159.38:8080
+          user: admin
+          token: ${{ secrets.JENKINS_API_TOKEN }}
+          job: java-app-deploy
+
+      - name: Validate Deployment
+        run: |
+          curl -f http://13.232.110.125:8080/insured-app/ || exit 1
+          echo "Deployment validated successfully!"
