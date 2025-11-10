@@ -4,7 +4,7 @@ pipeline {
     environment {
         TOMCAT_USER = 'admin'
         TOMCAT_PASSWORD = 'admin123'
-        TOMCAT_URL = 'http://13.232.110.125:8080/manager/text'
+        TOMCAT_URL = 'http://43.205.140.72:8080/manager/text'
         WAR_NAME = 'insured-app.war' // final WAR name
     }
 
@@ -49,7 +49,7 @@ pipeline {
             steps {
                 echo 'Validating deployment...'
                 sh """
-                curl -I http://13.232.110.125:8080/insured-app/
+                curl -I http://43.205.140.72:8080/insured-app/
                 """
             }
         }
